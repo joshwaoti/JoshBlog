@@ -16,6 +16,6 @@ def blog(request, post_id=None):
     return render(request, "blog/category.html", context)
 
 def singlePost(request, post_id):
-    post = get_object_or_404(Post, post_id=post_id)
+    post = get_object_or_404(Post, pk=post_id)
     
-    return render(request, "blog/single-post.html")
+    return render(request, "blog/single-post.html", {"post" : post})
