@@ -10,26 +10,28 @@ class Category(models.Model):
         verbose_name_plural = "Categories"
 
     def __str__ (self):
-        self.name
+        return self.name
 
 
 class Post(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    post_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    title = models.CharField(max_length=50)
+    avatar = models.ImageField(default="static/assets/img/person-2.jpg", null=True, blank=True)
+    title = models.CharField(max_length=100)
     description = models.TextField()
-    image = models.ImageField(upload_to='/static/blog')
+    image = models.ImageField(upload_to='static/blog')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
 
     def __str__ (self):
-        self.title
+        return self.title
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(default="static/assets/img/person-2.jpg")
     name = models.CharField(max_length=100)
     email = models.EmailField()
     body = models.TextField()
